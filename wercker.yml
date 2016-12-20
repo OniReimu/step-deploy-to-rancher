@@ -1,9 +1,23 @@
-box: wercker/default
+#box: wercker/default
 
-build:
-    steps:
-        - shellcheck:
-            files: run.sh
-        - script:
-            name: prepare output
-            code: rm -rf $WERCKER_ROOT/.git
+#build:
+#    steps:
+#        - shellcheck:
+#            files: run.sh
+#        - script:
+#            name: prepare output
+#            code: rm -rf $WERCKER_ROOT/.git
+deploy:
+  steps:
+    - nhumrich/deploy-to-rancher:
+        access_key: $RANCHER_ACCESS_KEY
+        secret_key: $RANCHER_SECRET_KEY
+        rancher_url: $RANCHER_URL
+        https: false # should https protocol be used?
+        tag: latest  # docker tag for the `image:` section in docker-compose
+        stack_name: my-awesome-stack  # Rancher stack name
+        service_name: awesome  # Name of service in rancher
+        docker_org: reimu  # name of organaztion
+        docker_image: awesome
+        use_tag: false
+        inplace: false
