@@ -1,0 +1,11 @@
+version: '2'
+services:
+  service1:
+    labels:
+      io.rancher.scheduler.global: 'true'
+      io.rancher.scheduler.affinity:host_label: reimu=saber
+    tty: true
+    stdin_open: true
+    image: nginx
+    ports:
+    - 8000:80/tcp
